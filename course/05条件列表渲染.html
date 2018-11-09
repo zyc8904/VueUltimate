@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05条件列表渲染</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="show">You can see me!<span>Hello</span></p>
+        <p v-else>Now you see me!</p>
+        <template v-if="show">
+            <h1>Headings</h1>
+            <p>Inside a template</p>
+        </template>
+        <p v-show="show">Do you also see me?</p>
+        <button @click="show = !show">Switch</button>
+        <hr>
+        <ul>
+            <li v-for="(ingredient, i) in ingredients" :key="i">{{ ingredient }} ({{ i }})</li>
+        </ul>
+        <button @click="ingredients.push('spices')">push</button>
+        <hr>
+        <ul>
+            <li v-for="(person, index) in persons">
+                <p>{{ index }}</p>
+                <p v-for="(value, key, i) in person">{{ i }} {{ key }}: {{ value }}</p>
+            </li>
+        </ul>
+        <hr>
+        <template v-for="(ingredient, index) in ingredients" :title="ingredient">
+            <h1>{{ ingredient }}</h1>
+            <p>{{ index }}</p>
+        </template>
+        <hr>
+        <div>
+            <span v-for="n in 10">{{ n }}</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="js/vue05.js"></script>
+</body>
+</html>

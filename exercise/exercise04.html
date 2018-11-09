@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Exercise04</title>
+    <style>
+        .effect {
+            width: 100px; height: 100px;
+            border: 1px solid black;
+        }
+        .userstyle01 {
+            width: 100px; height: 100px;
+            background: grey;
+        }
+        .userstyle02 {
+            width: 50px; height: 50px;
+            background: blueviolet;
+        }
+        .userstyle03 {
+            width: 10px; height: 10px;
+            background: green;
+        }
+        .highlight {
+            background-color: red;
+            width: 200px;
+        }
+        .shrink {
+            background-color: grey;
+            width: 50px;
+        }
+        .couplecss {
+            width: 100px; height: 100px;
+            border: 2px solid palevioletred;
+        }
+        .float {
+            float: right;
+        }
+        .blue {
+            background-color: blue;
+        }
+        .visible {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="exercise04">
+        <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attch respective class to the div with id "effect" below) -->
+        <div>
+            <button @click="starEffect">Start Effect</button>
+            <div class="effect" :class="classTick"></div>
+        </div>
+        <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+        <div :class="[couple, {highlight: !attached}]">I got no class :(</div>
+        <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+        <div>
+            <input type="text" v-model="mystyle" placeholder="userstyle01-03">
+            <div :class="[mystyle]"></div>
+        </div>
+        <!-- 4) Let the user enter a class and enter true/false for another class (create some example classes) and attach the classes -->
+        <div>
+            <input type="text" v-model="mystyle" placeholder="userstyle01-03">
+            <input type="text" v-model="isVisible">
+            <div :class="[mystyle, {visible: isVisible}]"></div>
+        </div>
+        <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles. -->
+        <div>
+            <input type="text" v-model="userStyle.backgroundColor">
+            <div :style="userStyle"></div>
+        </div>
+        <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+        <div>
+            <button @click="startPro">Start Progress</button>
+            <div :style="myProgress"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="js/exercise04.js"></script>
+</body>
+</html>

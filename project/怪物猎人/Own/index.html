@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>怪物猎人</title>
+    <style>
+        .stage {
+            font-size: 0; text-align: center;
+        }
+        .box {
+            display: inline-block; vertical-align: top;
+            margin: 0 30px;
+        }
+        .box h2 {
+            font-size: 40px;
+        }
+        .progress {
+            width: 400px; height: 42px;
+            border-radius: 2px;
+            background: rgba(0,0,0,.3);
+        }
+        .inside {
+            min-width: 0;
+            max-width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            background: green;
+            transition: all .2s ease-in-out;
+        }
+        .inside p {
+            text-align: center; font-size: 28px;
+            color: #fff;
+        }
+        .wrapper {
+            width: 80%;
+            max-width: 980px; max-height: 500px;
+            padding: 50px 0;
+            margin: 20px auto; box-sizing: border-box;
+            box-shadow: 0 2px 15px rgba(0,0,0,.1);
+            text-align: center;
+            overflow-y: auto;
+        }
+        .wrapper > a {
+            display: none; vertical-align: middle;
+            height: 50px; line-height: 50px;
+            padding: 0 10px; margin: 0 5px;
+            font-size: 26px; text-decoration: none;
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,.05);
+            color: #000;
+            opacity: .8;
+            transition: .2s;
+        }
+        .wrapper > a.show {
+            display: inline-block;
+        }
+        .wrapper > a:hover { opacity: 1; }
+        .wrapper > a:nth-child(1) {
+            background: thistle;
+        }
+        .wrapper > a:nth-child(2) {
+            background: wheat;
+        }
+        .wrapper > a:nth-child(3) {
+            background: khaki;
+        }
+        .wrapper > a:nth-child(4) {
+            background: paleturquoise;
+        }
+        .wrapper > a:nth-child(5) {
+            background: lightgreen;
+        }
+
+        .infolist {
+            margin: 0;
+            padding: 0 50px;
+        }
+        .infolist > li {
+            position: relative;
+            margin-bottom: 8px;
+            list-style: none;
+        }
+        .infolist > li span {
+            position: absolute;
+            top: -8px; left: 12px;
+            font-size: 28px;
+            color: #fff;
+        }
+        .infolist > li p {
+            padding: 5px 0;
+            margin: 0;
+            height: 20px; line-height: 20px;
+            margin-bottom: 5px;
+            border-radius: 2px;
+            font-size: 24px;
+        }
+        .infolist > li p.you {
+            background: lightcoral;
+            color: red;
+        }
+        .infolist > li p.monster {
+            background: paleturquoise;
+            color: blue;
+        }
+        #intoView {
+            height: 0; overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="stage">
+            <div class="box box01">
+                <h2>YOU</h2>
+                <div class="progress">
+                    <div class="inside" :style="{width: youValue + '%'}"><p>{{ youValue }}</p></div>
+                </div>
+            </div>
+            <div class="box box02">
+                <h2>MONSTER</h2>
+                <div class="progress">
+                    <div class="inside" :style="{width: monsterValue + '%'}"><p>{{ monsterValue }}</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <a :class="{ show: !showValue }" href="#" role="button" @click="startShow()">START NEW GAME</a>
+            <a :class="{ show: showValue }" href="#" role="button" @click="attack()">ATTACK</a>
+            <a :class="{ show: showValue }" href="#" role="button" @click="spAttack()">SPECIAL ATTACK</a>
+            <a :class="{ show: showValue }" href="#" role="button" @click="heal()">HEAL</a>
+            <a :class="{ show: showValue }" href="#" role="button" @click="giveUp()">GIVE UP</a>
+        </div>
+        <div class="wrapper">
+            <ul class="infolist">
+                <li v-for="(arrayB, index) in arrayBlood" :key="index">
+                    <span>{{ index }}.</span>
+                    <p v-for="(obj, key) in arrayB" v-if="key == 'you' && obj < 0" :class="key">monster hits player for {{ obj }}</p>
+                    <p v-for="(obj, key) in arrayB" v-if="key == 'you' && obj > 0" :class="key">player heals himself for {{ obj }}</p>
+                    <p v-for="(obj, key) in arrayB" v-if="key == 'monster' && obj != 0" :class="key">player hits monster for {{ obj }}</p>
+                </li>
+            </ul>
+            <div id="intoView"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="vue.js"></script>
+</body>
+</html>
